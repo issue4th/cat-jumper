@@ -2,6 +2,7 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
     export const Flower = SpriteKind.create()
     export const Fireball = SpriteKind.create()
+    export const Torch = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     info.changeScoreBy(1)
@@ -68,6 +69,9 @@ function start_fireballs () {
         )
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`fire 1`, function (sprite, location) {
+    game.over(false, effects.melt)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Hops_and_Paw.vy == 0) {
         Hops_and_Paw.vy = -150
@@ -79,6 +83,33 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`tile3`, function (sprite, loc
 function hide_start_position () {
     for (let value of tiles.getTilesByType(assets.tile`tile6`)) {
         tiles.setTileAt(value, assets.tile`tile0`)
+    }
+}
+function start_torches () {
+    for (let temporary of sprites.allOfKind(SpriteKind.Torch)) {
+        temporary.destroy()
+    }
+    for (let location of tiles.getTilesByType(assets.tile`tile3`)) {
+        temporary = sprites.create(img`
+            2 4 4 2 . 2 . . 2 . 2 . 3 . . . 
+            . . 2 . . . 5 2 . . 4 . . . . . 
+            . 2 . 5 2 4 2 4 . 2 . . 5 2 . . 
+            . 3 5 5 4 2 2 . 2 . . 4 2 . 2 . 
+            . . 5 2 2 . 5 . . . 4 4 . . 5 . 
+            . 4 4 2 . 2 2 . 5 4 4 . . 2 . 2 
+            5 4 2 2 4 4 4 4 4 2 2 . . 5 4 2 
+            2 2 . 2 2 2 2 4 2 4 5 4 5 4 4 2 
+            2 2 4 5 2 2 4 2 4 4 2 2 2 2 2 2 
+            2 2 4 4 4 2 2 2 4 2 2 4 2 . 2 2 
+            2 4 4 2 2 . 4 4 2 2 2 2 2 2 2 2 
+            2 4 4 4 4 4 4 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 8 2 c 2 2 2 2 2 2 
+            2 2 c 2 c 2 c c c c c 2 2 c 2 2 
+            c c c c c c c c c c c c c c c c 
+            `, SpriteKind.Torch)
+        temporary.startEffect(effects.fire)
+        tiles.placeOnTile(temporary, location)
     }
 }
 function start_coins () {
@@ -531,6 +562,8 @@ function startLevel () {
         tiles.setTilemap(tilemap`level_0`)
     } else if (current_level == 2) {
         tiles.setTilemap(tilemap`level_1`)
+    } else if (current_level == 2) {
+    	
     } else {
         game.over(true)
     }
@@ -542,6 +575,7 @@ function startLevel () {
     start_fireballs()
     start_flowers()
     start_coins()
+    start_torches()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -678,7 +712,7 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-current_level = 1
+current_level = 0
 Hops_and_Paw = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
