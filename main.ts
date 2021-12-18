@@ -88,7 +88,6 @@ function hide_start_position () {
 function start_torches () {
     for (let temporary of sprites.allOfKind(SpriteKind.Torch)) {
         temporary.destroy()
-        game.over(false)
     }
     for (let location of tiles.getTilesByType(assets.tile`tile3`)) {
         temporary = sprites.create(img`
@@ -711,7 +710,7 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-current_level = 3
+current_level = 1
 Hops_and_Paw = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
