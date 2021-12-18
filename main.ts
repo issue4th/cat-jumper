@@ -562,8 +562,6 @@ function startLevel () {
         tiles.setTilemap(tilemap`level_0`)
     } else if (current_level == 2) {
         tiles.setTilemap(tilemap`level_1`)
-    } else if (current_level == 2) {
-    	
     } else {
         game.over(true)
     }
