@@ -88,6 +88,7 @@ function hide_start_position () {
 function start_torches () {
     for (let temporary of sprites.allOfKind(SpriteKind.Torch)) {
         temporary.destroy()
+        game.over(false)
     }
     for (let location of tiles.getTilesByType(assets.tile`tile3`)) {
         temporary = sprites.create(img`
@@ -556,12 +557,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Fireball, function (sprite, othe
     otherSprite.destroy()
 })
 function startLevel () {
-    if (current_level == 0) {
+    if (current_level == 1) {
         tiles.setTilemap(tilemap`level 1`)
-    } else if (current_level == 1) {
-        tiles.setTilemap(tilemap`level_0`)
     } else if (current_level == 2) {
-        tiles.setTilemap(tilemap`level_1`)
+        tiles.setTilemap(tilemap`level_0`)
+    } else if (current_level == 3) {
+        tiles.setTilemap(tilemap`level_3`)
     } else {
         game.over(true)
     }
@@ -570,10 +571,10 @@ function startLevel () {
     scene.cameraFollowSprite(Hops_and_Paw)
     clear_previous_enemies()
     hide_start_position()
+    start_torches()
     start_fireballs()
     start_flowers()
     start_coins()
-    start_torches()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -710,7 +711,7 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-current_level = 0
+current_level = 3
 Hops_and_Paw = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
