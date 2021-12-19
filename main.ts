@@ -108,10 +108,16 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile22`, function (sprite, 
     current_level = 5
     startLevel()
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile24`, function (sprite, location) {
+    controller.moveSprite(Hops_and_Paw, 200, 0)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Hops_and_Paw.vy == 0) {
         Hops_and_Paw.vy = -150
     }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile25`, function (sprite, location) {
+    controller.moveSprite(Hops_and_Paw, 80, 0)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile3`, function (sprite, location) {
     game.over(false, effects.melt)
@@ -802,6 +808,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Fireball, function (sprite, othe
     otherSprite.destroy()
 })
 function startLevel () {
+    controller.moveSprite(Hops_and_Paw, 80, 0)
     scene.setBackgroundColor(9)
     scene.setBackgroundImage(img`
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -948,6 +955,18 @@ function startLevel () {
     start_flowers()
     start_coins()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, location) {
+    current_level = 6
+    tiles.setTilemap(tilemap`level14`)
+    tiles.placeOnRandomTile(Hops_and_Paw, assets.tile`tile6`)
+    scene.cameraFollowSprite(Hops_and_Paw)
+    clear_previous_enemies()
+    hide_start_position()
+    start_torches()
+    start_fireballs()
+    start_flowers()
+    start_coins()
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     game.over(false, effects.melt)
 })
