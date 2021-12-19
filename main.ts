@@ -551,6 +551,40 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Flower, function (sprite, otherS
     bee.setPosition(Hops_and_Paw.x + 80, Hops_and_Paw.y - 80)
     bee.follow(Hops_and_Paw, 50)
 })
+function start_fireballs2 () {
+    for (let temporary of sprites.allOfKind(SpriteKind.Fireball)) {
+        temporary.destroy()
+    }
+    for (let location of tiles.getTilesByType(assets.tile`myTile10`)) {
+        temporary = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . 4 4 4 4 4 4 4 4 4 4 4 . . . 
+            . . 4 4 4 4 4 4 4 4 4 4 4 . . . 
+            . . 4 4 5 5 1 1 1 1 1 4 4 . . . 
+            . . 4 4 5 5 1 1 1 1 1 4 4 . . . 
+            . . 4 4 5 5 1 1 1 1 1 4 4 . . . 
+            . . 4 4 5 5 1 1 1 1 1 4 4 . . . 
+            . . 4 4 5 5 1 1 1 1 1 4 4 . . . 
+            . . 4 4 5 5 5 5 5 5 5 4 4 . . . 
+            . . 4 4 5 5 5 5 5 5 5 4 4 . . . 
+            . . 4 4 4 4 4 4 4 4 4 4 4 . . . 
+            . . 4 4 4 4 4 4 4 4 4 4 4 . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Fireball)
+        temporary.startEffect(effects.fire)
+        tiles.placeOnTile(temporary, location)
+        tiles.setTileAt(location, assets.tile`tile0`)
+        animation.runMovementAnimation(
+        temporary,
+        "c 0 150 0 -150 0 0",
+        2000,
+        true
+        )
+    }
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Fireball, function (sprite, otherSprite) {
     info.changeLifeBy(-2)
     otherSprite.destroy()
@@ -574,6 +608,7 @@ function startLevel () {
     hide_start_position()
     start_torches()
     start_fireballs()
+    start_fireballs2()
     start_flowers()
     start_coins()
 }
@@ -715,7 +750,7 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-current_level = 1
+current_level = 4
 Hops_and_Paw = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
