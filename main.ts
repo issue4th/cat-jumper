@@ -790,6 +790,8 @@ function startLevel () {
         tiles.setTilemap(tilemap`level_3`)
     } else if (current_level == 4) {
         tiles.setTilemap(tilemap`level5`)
+    } else if (current_level == 5) {
+        tiles.setTilemap(tilemap`level6`)
     } else {
         game.over(true)
     }
@@ -941,7 +943,7 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
-current_level = 1
+current_level = 5
 Hops_and_Paw = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
