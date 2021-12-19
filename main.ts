@@ -108,6 +108,18 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile3`, function (sprite, location) {
     game.over(false, effects.melt)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile29`, function (sprite, location) {
+    current_level = 502
+    tiles.setTilemap(tilemap`level14`)
+    tiles.placeOnRandomTile(Hops_and_Paw, assets.tile`tile6`)
+    scene.cameraFollowSprite(Hops_and_Paw)
+    clear_previous_enemies()
+    hide_start_position()
+    start_torches()
+    start_fireballs()
+    start_flowers()
+    start_coins()
+})
 function hide_start_position () {
     for (let value of tiles.getTilesByType(assets.tile`tile6`)) {
         tiles.setTileAt(value, assets.tile`tile0`)
