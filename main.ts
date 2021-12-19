@@ -562,6 +562,8 @@ function startLevel () {
         tiles.setTilemap(tilemap`level_0`)
     } else if (current_level == 3) {
         tiles.setTilemap(tilemap`level_3`)
+    } else if (current_level == 4) {
+        tiles.setTilemap(tilemap`level5`)
     } else {
         game.over(true)
     }
@@ -575,6 +577,9 @@ function startLevel () {
     start_flowers()
     start_coins()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    game.over(false, effects.melt)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     if (Hops_and_Paw.y < otherSprite.y) {
