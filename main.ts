@@ -942,6 +942,8 @@ function startLevel () {
         tiles.setTilemap(tilemap`level5`)
     } else if (current_level == 5) {
         tiles.setTilemap(tilemap`level6`)
+    } else if (current_level == 5) {
+        tiles.setTilemap(tilemap`level20`)
     } else {
         game.over(true)
     }
@@ -969,6 +971,18 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, 
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     game.over(false, effects.melt)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile26`, function (sprite, location) {
+    current_level = 7
+    tiles.setTilemap(tilemap`level22`)
+    tiles.placeOnRandomTile(Hops_and_Paw, assets.tile`tile6`)
+    scene.cameraFollowSprite(Hops_and_Paw)
+    clear_previous_enemies()
+    hide_start_position()
+    start_torches()
+    start_fireballs()
+    start_flowers()
+    start_coins()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
