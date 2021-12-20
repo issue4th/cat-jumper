@@ -5,6 +5,7 @@ namespace SpriteKind {
     export const Torch = SpriteKind.create()
     export const gem_coin = SpriteKind.create()
     export const draconium_coin = SpriteKind.create()
+    export const portal = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     info.changeScoreBy(1)
@@ -96,6 +97,68 @@ function start_fireballs () {
         temporary,
         "c 0 150 0 -150 0 0",
         2000,
+        true
+        )
+    }
+}
+function start_portals () {
+    for (let temporary of sprites.allOfKind(SpriteKind.portal)) {
+        temporary = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . c c c c c c c c . . . 
+            . . . . c a a a a a a a d c . . 
+            . . . c a a a a a a d d b c . . 
+            . . c d b a a a a d b b a c . . 
+            . c a d b b b b b b b a a c . . 
+            . c a a d b f f f b b a a a c . 
+            . c a a a b f d f f b a a a c . 
+            . c a a a b f f d f b a a a c . 
+            . c a a a b b f f f b a a a c . 
+            . c a a a b b b b b b b a a c . 
+            . c a a b b d d d d d b a c . . 
+            . . c b d d a a a a a d b a c . 
+            . . . c c a a a a a a d c . . . 
+            . . . . . c c c c c c c . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.portal)
+        animation.runImageAnimation(
+        temporary,
+        [img`
+            . . . . . . 4 . . . . . . . . . 
+            . 4 . . . c c c c c c c c . . 4 
+            . . . . c a a a a a a a d c . . 
+            . . . c a a a a a a d d b c . . 
+            . . c d b a a a a d b b a c . 4 
+            . c a d b b b b b b b a a c . . 
+            . c a a d b f f f b b a a a c . 
+            . c a a a b f d f f b a a a c . 
+            . c a a a b f f d f b a a a c 4 
+            . c a a a b b f f f b a a a c . 
+            . c a a a b b b b b b b a a c . 
+            4 c a a b b d d d d d b a c . . 
+            . . c b d d a a a a a d b a c . 
+            . . . c c a a a a a a d c . . . 
+            . 4 . . . c c c c c c c . 4 . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . 4 . . . . . 4 . . . 
+            . . 4 . . c c c c c c c c . . 4 
+            4 . . . c a a a a a a a d c . . 
+            . . . c a a a a a a d d b c . 4 
+            4 . c d b a a a a d b b a c . . 
+            . c a d b b b b b b b a a c . . 
+            . c a a d b f f f b b a a a c . 
+            . c a a a b f d f f b a a a c 4 
+            . c a a a b f f d f b a a a c . 
+            . c a a a b b f f f b a a a c . 
+            . c a a a b b b b b b b a a c . 
+            . c a a b b d d d d d b a c . . 
+            . . c b d d a a a a a d b a c . 
+            4 . . c c a a a a a a d c . . . 
+            . . . . . c c c c c c c . . 4 . 
+            . . . 4 . . . . . . . . 4 . . . 
+            `],
+        100,
         true
         )
     }
@@ -931,6 +994,8 @@ function startLevel () {
         tiles.setTilemap(tilemap`level6`)
     } else if (current_level == 6) {
         tiles.setTilemap(tilemap`level20`)
+    } else if (current_level == 7) {
+        tiles.setTilemap(tilemap`level24`)
     } else {
         game.over(true)
     }
@@ -939,6 +1004,7 @@ function startLevel () {
     scene.cameraFollowSprite(Hops_and_Paw)
     clear_previous_enemies()
     hide_start_position()
+    start_portals()
     start_torches()
     start_fireballs()
     start_flowers()
@@ -955,6 +1021,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, 
     start_fireballs()
     start_flowers()
     start_coins()
+    start_portals()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     game.over(false, effects.melt)
@@ -970,6 +1037,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile26`, function (sprite, 
     start_fireballs()
     start_flowers()
     start_coins()
+    start_portals()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
