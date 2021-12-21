@@ -7,6 +7,9 @@ namespace SpriteKind {
     export const draconium_coin = SpriteKind.create()
     export const portal = SpriteKind.create()
 }
+/**
+ * Cat movement
+ */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     otherSprite.destroy()
@@ -188,9 +191,6 @@ function hide_start_position () {
         tiles.setTileAt(value, assets.tile`tile0`)
     }
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile37`, function (sprite, location) {
-    info.changeLifeBy(-1)
-})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
     game.over(false, effects.melt)
 })
@@ -1447,6 +1447,7 @@ Hops_and_Paw = sprites.create(img`
 controller.moveSprite(Hops_and_Paw, 80, 0)
 tiles.placeOnRandomTile(Hops_and_Paw, assets.tile`tile6`)
 scene.cameraFollowSprite(Hops_and_Paw)
+let over_hogweed = false
 hide_start_position()
 game.onUpdate(function () {
     if (Hops_and_Paw.vy < 0) {
@@ -1597,5 +1598,15 @@ game.onUpdate(function () {
         } else {
         	
         }
+    }
+})
+game.onUpdate(function () {
+    if (Hops_and_Paw.tileKindAt(TileDirection.Center, assets.tile`myTile37`)) {
+        if (!(over_hogweed)) {
+            info.changeLifeBy(-1)
+            over_hogweed = true
+        }
+    } else {
+        over_hogweed = false
     }
 })
